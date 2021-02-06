@@ -1,0 +1,45 @@
+/* Link to leetcode problem is here - https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+Bruteforce Solution */
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        
+        // Varaible to store the starting of the window
+        int ws = 0;
+        
+        // Varaible to store the ending of the window
+        int we = 0;
+        
+        // Varaible to store the longest substring at any given point
+        int lengthOfLongestSubstring = 0;
+        
+        // Set to keep track of unique characters
+        Set<Character> charSet = new HashSet<Character>();
+        
+        // Traversing through the String
+        for(we = 0; we < s.length(); we++) {
+            
+            /* If the character is not present in the set, add the character in the set
+             Calculate the length till this point to compare it with upcoming sequences. 
+             Add 1 to get the count between the start and end of windows */
+            if(!charSet.contains(s.charAt(we))){
+                charSet.add(s.charAt(we));
+                lengthOfLongestSubstring = Math.max(lengthOfLongestSubstring, we - ws + 1);
+            }else {
+             
+                // If the character is present in the set, clear the set to start a new window 
+                charSet.clear();
+                
+                // Move the start window by 1
+                ws++;
+                
+                // Get the end back to start varaible, subtract 1 to nullify with we++
+                we = ws - 1;
+            }
+        }
+        
+        return lengthOfLongestSubstring;
+    }
+}
+
