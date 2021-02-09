@@ -43,3 +43,47 @@ class Solution {
     }
 }
 
+
+/* Optimized sliding window
+   Time complexity : O(n)
+   Space complexity : O(min(m,n)). We need O(k)O(k) space for the sliding window, where kk is the size of the Map. 
+   The size of the Map is upper bounded by the size of the string n and the size of the charset/alphabet m.
+
+*/
+
+
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        
+         // Varaible to store the starting of the window
+        int ws = 0;
+
+        // Varaible to store the ending of the window
+        int we = 0;
+
+        // Varaible to store the longest substring at any given point
+        int lengthOfLongestSubstring = 0;
+
+        // Map to keep track of unique characters
+        Map<Character, Integer> charMap = new HashMap<Character, Integer>();
+
+        // Traversing through the String
+        for(we = 0; we < s.length(); we++) {
+
+            // If the character is present in the set, calculate the start of the window
+            if(charMap.containsKey(s.charAt(we))){
+                
+                 ws = Math.max(ws,charMap.get(s.charAt(we)));
+
+            }
+               /* add the character in map with the position of we + 1 to get the next window start when 
+               the character is already present in the map */
+                charMap.put(s.charAt(we),we + 1); 
+            
+                
+                lengthOfLongestSubstring = Math.max(lengthOfLongestSubstring, we - ws + 1);
+        }
+        return lengthOfLongestSubstring;
+    }
+}
