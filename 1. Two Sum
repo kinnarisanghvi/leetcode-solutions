@@ -1,0 +1,23 @@
+/* Using hashmap 
+Time Complexity - O(n)
+Space Complexity - O(n) */
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        
+        // Map to store nums and its index
+        Map<Integer, Integer> m = new HashMap<Integer, Integer>();
+        
+        for(int i = 0; i < nums.length; i++) {
+            
+             int complement = target - nums[i];
+            // if map conatins the complement, return the indices
+            if(m.containsKey(complement))
+                return new int[] { i, m.get(complement) };
+            else
+                // adding the number to map
+                m.put(nums[i],i);
+        }
+            return new int[]{0,0};
+    }
+}
